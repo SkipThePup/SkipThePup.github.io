@@ -1,4 +1,16 @@
-/*Most of this code was obtained by reading w3schools tutorials, unless noted */
+/*
+File: mystyle.css
+Created on: July 12, 2021
+GUI Assignment: HW1 - Part 2: First Web Page
+Description: This is in charge of styling the contect of my html files. I tried to be
+as descriptive as I could on each section without being echoing what was going on....
+
+DISCLAIMER: Most of this code was obtained by reading w3schools.com tutorials, unless noted
+
+Rodrigo Choque Cardenas, UMass Lowell Computer Science, rodrigo_choquecardenas@student.uml.edu
+Updated by RCC on July 16, 2021 at 9:38 PM
+*/
+
 body{
     /*Change font and size of the text in entire webpage*/
     font-size: 90%;
