@@ -1,0 +1,79 @@
+/*Most of this code was obtained by reading w3schools tutorials, unless noted */
+body{
+    /*Change font and size of the text in entire webpage*/
+    font-size: 90%;
+    font-family: "Lucida Consola", Courier, monospace;
+    letter-spacing: 0.15em;
+}
+/*Creater a proper margin for the webpage such that it doesn't rearrange itself when window changes size*/
+#page{
+    margin: 10px auto;
+    padding: 25px;
+    border: 4px double;
+    min-width: 940px;
+    max-width: 940px;
+}
+/*Give style to the first image*/
+#mainPicture img{
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#mainPicture{
+    margin: 10px auto;
+}
+h1{
+    text-align: center;
+    margin: 20px auto;
+}
+/*ul contains the pictures of Zizou's career. Showed inline.*/
+#navigation li{
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid red;
+}
+/*Delete underline from links. Convert them to uppercase and arrange them so it's clear to read*/
+a:link{
+    color: blue, strong;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 6px 70px 5px 70px;
+}
+p{
+    text-align: center;
+    width: 750px;
+    margin: 20px auto;
+}
+/*First letter of each paragraph is styled so it looks big and pretty*/
+p::first-letter{
+    font-size: 150%;
+    font-style: italic;
+    font-weight: bold;
+}
+#career_pictures li{
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Source: https://stackoverflow.com/questions/19414856/how-can-i-make-all-images-of-different-height-and-width-the-same-via-css */
+/*Makes all images the same size*/
+#career_pictures img{
+    width:  200px;
+    height: 200px;
+    object-fit: cover;
+}
+/*When hovering over a link, it turns red*/
+a:hover{
+    color: red;
+}
+/*It is clearly marked when we are at the home page.*/
+#navigation .on{
+    color: red;
+}
+/*Adds border to the stats' tables*/
+table, th, td {
+    border: 1px solid black;
+}
