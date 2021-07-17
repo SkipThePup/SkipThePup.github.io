@@ -36,7 +36,8 @@ h1{
 }
 /*Delete underline from links. Convert them to uppercase and arrange them so it's clear to read*/
 a:link{
-    color: blue, strong;
+    color: blue;
+    font-weight: bold;
     text-transform: uppercase;
     font-weight: bold;
     text-decoration: none;
