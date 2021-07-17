@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+File: index.html
+Created on: July 12, 2021
+GUI Assignment: HW1 - Part 2: First Web Page
+Description: This is my first webpage. It is about my favorite football player with pictures, links to
+additional info about him -all displayed on a horizontal menu. As requested, I've tried my best to keep data
+and style separate; this html file only contains the data part of the webpage, and the css file will containt
+the sytiling of my web page.
+
+Rodrigo Choque Cardenas, UMass Lowell Computer Science, rodrigo_choquecardenas@student.uml.edu
+Updated by RCC on July 16, 2021 at 9:38 PM
+-->
+
+<html>
+    <head>
+        <title>Zidane</title>
+        <!--Linking my .css file to this html file-->
+        <link rel="stylesheet" type="text/css" href="mystyle.css">
+    </head>
+    <body>
+        <div id="page">
+            <!--Main picture of the webpage. Source:https://en.as.com/en/2016/05/17/football/1463499183_037131.html-->
+            <div id="mainPicture">
+                <img src="images/zidane_title.jpg" />
+            </div>
+            <!--Main title of the page-->
+            <h1>
+                Zidane, "The Magician"
+            </h1>
+            <p>
+                Zinedine Zidane, former captain of the France national team, and former coach of Real Madrid
+            </p>
+            <!--Navigation menu: Each item of the menu links to another webpage-->
+            <ul id="navigation">
+                <li><a href="#" class="on">Home</a></li>
+                <li><a href="stats.html">Stats</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Zinedine_Zidane">Wikipedia</a></li>
+                <li><a href="https://www.youtube.com/results?search_query=Zidane">Videos</a></li>
+            </ul>
+            <!--quotes said about Zizou by famous soccer legends. Source of quotes: https://www.footiecentral.com/20160318/best-quotes-on-zinedine-zidane/-->
+            <div id="quotes">
+                <p id="quote1">
+                    “Zidane is one of the greatest players in history, a truly magnificent player.”
+                    — Franz Beckenbauer
+                </p>
+                <p id="quote2">
+                    “He played like a ‘general’ in midfield. He has technique, tricks, passing and also has an ability to score some of the best goals.”
+                    — Marco van Basten
+                </p>
+                <p id="quote3">
+                    ” . . . the most elegant footballer I have ever seen”
+                    — Gary Lineker
+                </p>
+            <!--Paragraphs describing Zidane's career. All this data has come from my own, since I read so much about him-->
+                <div id="career">
+                    <p>
+                        Zizou only wore the jerseys of four clubs. He started his career at Cannes on the french league. Later he was signed
+                        by the Girondins of Bourdeux; this is where the started to shine and bloom reaching the final of the 1996 UEFA Cup.
+                        Next he would join his first big club, Juventus; during this time he would establish himself as one of Europe's finest,
+                        he would win two Serie A's titles and reach two Champions League finals. The last club of his career was Real Madrid which
+                        they would pay a record-breaking transfer fee; as a "merengue", Zizou won his first and only Champions League, scoring the
+                        winning goal -goal which is still remebered today and considered the best goal on a Champions League final. He would retire
+                        on 2006 against a match versus Villarreal.
+                    </p>
+                    <!--Source images: footballdatabase.eu-->
+                    <ul id="career_pictures">
+                        <li><img src="images/zidane_cannes.jpg" /></li>
+                        <li><img src="images/zidane_bourdeoux.jpg" /></li>
+                        <li><img src="images/zidane_juventus.jpg" /></li>
+                        <li><img src="images/zidane_madrid.jpg" /></li>
+                    </ul>
+                    <p>
+                        As an international team player, Zidane won the most significant cups any player could win: the World Cup and the Euro Cup. On both
+                        tournament he would have a significant role and scored important goals. He was and is still considered a national hero. Even
+                        close to his retirement, Zizou was close to win his second World Cup in 2006, getting a red card on the final and eventually loosing
+                        to Italy.
+                    </p>
+                    <!--Source images:https://www.dailymail.co.uk/sport/football/article-3595948/Zinedine-Zidane-shirt-worn-France-s-1998-World-Cup-triumph-sold-78-295.html-->
+                    <!--https://www.goal.com/en-us/news/who-did-zinedine-zidane-headbutt-in-the-world-cup-2006-final/1jhvyg4hqm70wzuf2cq44390s-->
+                    <ul id="career_pictures">
+                        <li><img src="images/zidane98.jpg" /></li>
+                        <li><img src="images/zidane06.png" /></li>
+                    </ul>
+                    <p>
+                        At a personal level, Zidane is the only player in history to win the Ballon D'Or, World Cup, World Cup player of the tournament,
+                        Euro Cup, Euro Cup player of the tournament, and a Champions League. Just wow!
+                    </p>
+                </div>
+                
+
+            </div>
+        </div>
+    </body>
+
+</html>
