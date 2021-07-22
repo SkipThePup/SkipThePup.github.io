@@ -1,0 +1,163 @@
+/*
+File: pacific.css
+Created on: July 20, 2021
+GUI Assignment: HW2: Style a site with external CSS
+Description: This is in charge of styling the content of a given HTML file. We
+were supposed not to touch anything on the html file, which I did.
+
+DISCLAIMER: Most of this code was obtained by reading w3schools.com tutorials, unless noted
+
+Rodrigo Choque Cardenas, UMass Lowell Computer Science, rodrigo_choquecardenas@student.uml.edu
+Updated by RCC on July 21, 2021 at 8:32PM
+*/
+
+/*Clears all the margins*/
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #00569f;
+	color: #666666;
+	font-family: Arial, Helvetica, sans-serif;
+	/*Transparent gradient that fade from white to blue, after 550px, the color stays at blue*/
+	background-image: linear-gradient(to bottom, #ffffff, transparent);
+	background-size: 100% 550px;
+	background-repeat: no-repeat;
+	margin: 15px;
+}
+
+/*this container holds the "page". Dimensions were set according to hw instructions*/
+#wrapper {
+	max-width: 80%;
+	min-width: 600px;
+	margin: 0 auto auto auto;
+	/*Fills the rest of the nav menu background color*/
+	background-color: #90c7e3;
+}
+/*Navigation menu. I used the float layout to move it to the left and gave it a width of 180px*/
+#wrapper nav{
+	background-color: #90c7e3;
+	float: left;
+	width: 180px;
+	padding-top: 15px;
+}
+/*Navigation items. I removed the markers and move them a little bit to the left.*/
+#wrapper nav ul li{
+	list-style-type: none;
+	padding-left: 15px;
+	overflow: hidden;
+}
+
+/*Navigation links. Changed color, made it bold, and removed underline of links*/
+#wrapper nav ul li a:link {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/*Right panel of page. I gave it a margin equal to the width of the navigation menu
+  That way the menu stays constant, but this container automatically adjusts.
+*/
+#content {
+	background-color: #ffffff;
+	margin-left: 180px;
+}
+
+#content h2{
+	padding: 15px 25px;
+}
+
+/*Image from content container. Moved it to the left using float*/
+#content img{
+	padding: 0px 25px;
+	float:left;
+}
+
+/*List from content container. Added padding*/
+#content ul{
+	padding-left: 50px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#content p{
+	padding-left: 25px;
+}
+
+/*Items from list in 'content' container. Changed the markers with the given .gif file. Changed position to inside
+to match hw2 demands.
+*/
+#content ul li{
+	list-style-image: url('marker.gif');
+	list-style-position: inside;
+}
+
+/*Class that holds the text with the name of the resort. I used to change that text section color and weight.*/
+.resort {
+	color: #00569f;
+	font-weight: bold;
+}
+
+/*Just like the 'content' container, margin was given to keep nav menu constant and this footer variable*/
+#wrapper footer {
+	background-color: #ffffff;
+	margin-left: 180px;
+}
+
+nav ul {
+	font-size: 1.2em;
+}
+/*This was already on this file. Changes color of visited and hovered links.*/
+nav a:visited {
+	color: #344873;
+}
+
+#wrapper nav ul li a:hover {
+	color: white;
+}
+
+h1 {
+	margin-bottom: 0;
+	padding: 10px;
+}
+/*Main header of page. I moved the given image to the right of header and used the respective color to fill the empty space*/
+#wrapper h1 {
+	background-position: right;
+	background-image: url("sunset.jpg");
+	background-repeat: no-repeat;
+	background-color: #000032;
+
+	color: white;
+}
+
+h2 {
+	color: #3399CC;
+}
+h1,
+h2 {
+	font-family: Georgia, "Times New Roman", serif;
+}
+#contact {
+	font-size: 90%;
+	padding-left: 25px;
+}
+dt {
+	color: #000033;
+}
+/*Edited text of the footer to match the page shown in hw2*/
+footer {
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 70%;
+	text-indent: 25px;
+	font-style: italic;
+	padding-top: 25px;
+	padding-bottom: 15px;
+}
+
+/*Added space around footer container*/
+#wrapper footer a{
+	margin-left: 25px;
+}
+
