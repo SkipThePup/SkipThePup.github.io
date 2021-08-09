@@ -227,5 +227,26 @@ $().ready(function () {
         }
 
     });
+    $("#deleteSingle").click(function () {
+        var active = $("#myTabs").tabs("option", "active");
+        active += 1;
+        console.log(active);
+
+        if (active >= 2) {
+            var activeTab = "tab" + active;
+            console.log(activeTab);
+            var tabToBeRemoved = document.getElementById(activeTab);
+            // Remove the panel
+            tabToBeRemoved.remove();
+
+
+
+            // Remove the tab
+            var hrefStr = "a[href='#" + activeTab + "']"
+            $(hrefStr).closest("li").remove()
+        }
+
+
+    });
 
 });
