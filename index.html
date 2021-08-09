@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--
+    File: index.html
+    Created on: August 3, 2021
+    GUI Assignment: HW4 Part 2: jQuery UI Slider and Tab Widgets
+    Description: NOTE: This is an extension of HW3 and HW4-Part 1, so I will only document the new added features.
+                 Mainly, this html file adds a div container to each div in the rangeValuesForm form. These divs will hold the
+                 sliders which will be added in the valueForm.js file.
+                 Second, it has new div called myTabs. This container replaces the previous container that held the multiplication table.
+                 This new div has a default tab which will now hold the multiplication table. This div also has a ulist that will
+                 be used to generate new tabs -which will be added in the valueForm.js file
+
+    DISCLAIMER: Most of this code was obtained by reading w3schools.com tutorials. Also, we used the readings provided by the professor in these
+    links: https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/jQueryUI1.8_Ch03_TabsWidget.pdf
+           https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/jQueryUI1.8_Ch06_SliderWidget.pdf
+
+    Rodrigo Choque Cardenas, UMass Lowell Computer Science, rodrigo_choquecardenas@student.uml.edu
+    Updated by RCC on August 8, 2021 at 1:01PM
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Multiplication Table App</title>
+    <!--Linking my .css file to this html file-->
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+    <!--Required .css by the JQuery plugin. This will style the sliders. This was obtained from jquery.com-->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body>
+    <div id="wrapper">
+        <!--Instruction label-->
+        <label id="instr">
+            Enter an integer between -50 to 50 for each axis limit.<br />
+            <span class="note">Note: </span>
+            Table will be auto-generated IF x-axis and y-axis ranges are valid.
+        </label>
+        <!--The "return false" prevents form from submitting and refreshing the page-->
+        <form id="rangeValuesForm" onsubmit="return false">
+            <!--Form with 4 fields. Each one with its respective label and input box-->
+            <div>
+                <label>X-Axis Lower limit</label>
+                <input type="number" id="xlower" name="xlower" value="0" />
+                <!--new div; it will hold the x-lower limit slider The same goes for the next three divs.-->
+                <div id="xlowerSlider"></div>
+            </div>
+            <div>
+                <label>X-Axis Upper limit</label>
+                <input type="number" id="xupper" name="xupper" value="0" />
+                <div id="xupperSlider"></div>
+            </div>
+            <div>
+                <label>Y-Axis Lower limit</label>
+                <input type="number" id="ylower" name="ylower" value="0" />
+                <div id="ylowerSlider"></div>
+            </div>
+            <div>
+                <label>Y-Axis Upper limit</label>
+                <input type="number" id="yupper" name="yupper" value="0" />
+                <div id="yupperSlider"></div>
+            </div>
+            <!--button than activates the event by using the javascrip funciton-->
+            <!--When button is pressed a new tab will open-->
+            <input class="submit" type="submit" value="Create Table on New Tab" />
+        </form>
+
+    </div>
+    <!--div container which will hold the tabs-->
+    <div>
+        <label id="instr2"><span class="note">Note: </span>To see AUTO-GENERATED multiplication table, stay on the "Table" tab</label>
+    </div>
+    <div id="myTabs">
+        <button id="deleteSingle">Delete current tab</button>
+        <!--list is required by the tab JQuery UI-->
+        <ul>
+            <li><a href="#table">Table</a></li>
+        </ul>
+        <div id="table"></div>
+    </div>
+
+
+    <script>
+        /*
+         * This is the same as HW3 (including the comments) except that I erased all error handlers and error messages.
+         * This function builds the table
+         */
+        function obtainValues() {
+
+            /*Obtaining string values from the input boxes*/
+            var xL = document.getElementById("xlower").value;
+            var xU = document.getElementById("xupper").value;
+            var yL = document.getElementById("ylower").value;
+            var yU = document.getElementById("yupper").value;
+
+            /*Spend two hours on these next 4 lines. For some reason the .value function returns a string
+             * even if the type of inputbox is specified as a number.
+             * The worst thing was that the xL, xU, yL, yU variables DID worked on the "for" loops;
+             * but it was compairing the string value and not the numerical value.
+             * For example, if my horizontal values went from 1 to 10, it'd work, but when
+             * it went from 2 to 10, it didn't. It took me many tests to notice the pattern :(
+             * I got the tutorial on how to obtain a value from an input box from w3schools, but
+             * nowhere is mentioned that if you plan to use numbers, you must convert them into numbers first
+             * sigh...very fustrating :P */
+            var xLower = parseInt(xL);
+            var yLower = parseInt(yL);
+            var xUpper = parseInt(xU);
+            var yUpper = parseInt(yU);
+
+            createTable(xLower, xUpper, yLower, yUpper);
+        }
+        /**
+         * Function requires four parameters to build table
+         * @param xLower lower bound of x axis
+         * @param xUpper upper bound of x axis
+         * @param yLower lower bound of y axis
+         * @param yUpper upper bound of y axis
+         * To build the table I chose between two options:
+         * Use js functions like createElement() to build html object, but it was becoming to clustered
+         * Use concatanation and a string to simply concatanate html tags, this was easier and way shorter
+         */
+        function createTable(xLower, xUpper, yLower, yUpper) {
+
+            var table = "<table border = '1'>";
+
+            /*Fill table horizontal header*/
+            table += "<tr id='headRow'>" + "<td>" + "*" + "</td>";
+            for (var i = xLower; i <= xUpper; i++) {
+                table += "<td>" + i + "</td>";
+            }
+            table += "</tr>"
+
+            /*Here we start filling each row. First with the corresponding vertical header value
+             and then with the multiplication between the current x and y axis values*/
+            for (var j = yLower; j <= yUpper; j++) {
+                /*Start of each row*/
+                table += "<tr>";
+                table += "<td>" + j + "</td>";
+                for (var i = xLower; i <= xUpper; i++) {
+                    /*Add each value to the respective row*/
+                    var value = i * j;
+                    table += "<td>" + value + "</td>";
+                }
+                /*End of each row*/
+                table += "</tr>";
+            }
+            /*We add the last tag and add the table to the div with id = table*/
+            table += "</table>";
+            document.getElementById("table").innerHTML = table;
+
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--Adding the Jquery UI library to our files-->
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/valueForm.js"></script>
+
+</body>
+</html>
