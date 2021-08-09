@@ -1,161 +1,252 @@
-<!DOCTYPE html>
-<!--
-    File: index.html
-    Created on: August 3, 2021
-    GUI Assignment: HW4 Part 2: jQuery UI Slider and Tab Widgets
-    Description: NOTE: This is an extension of HW3 and HW4-Part 1, so I will only document the new added features.
-                 Mainly, this html file adds a div container to each div in the rangeValuesForm form. These divs will hold the
-                 sliders which will be added in the valueForm.js file.
-                 Second, it has new div called myTabs. This container replaces the previous container that held the multiplication table.
-                 This new div has a default tab which will now hold the multiplication table. This div also has a ulist that will
-                 be used to generate new tabs -which will be added in the valueForm.js file
+/*File: valueForm.js
+Created on: August 3, 2021
+GUI Assignment: HW4 Part 2: Tab Jquery
+Description: File makes use of JQuery UI. This is an extension of HW3 and HW4-Part 1 where each generated multiplication table is 
+             opened on a new tab.
+             Also sliders were added to manipulate the input fields of the axis limits. Implements "two-way binding".
+NOTE: As said before, this is an extension of HW4 Part 1, so I deleted the comments found on that part, and just left the new ones.
+DISCLAIMER: Most of this code was obtained by reading w3schools.com tutorials. Also, we used the readings provided by the professor in these
+links: https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/jQueryUI1.8_Ch03_TabsWidget.pdf
+       https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/jQueryUI1.8_Ch06_SliderWidget.pdf
 
-    DISCLAIMER: Most of this code was obtained by reading w3schools.com tutorials. Also, we used the readings provided by the professor in these
-    links: https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/jQueryUI1.8_Ch03_TabsWidget.pdf
-           https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/jQueryUI1.8_Ch06_SliderWidget.pdf
-
-    Rodrigo Choque Cardenas, UMass Lowell Computer Science, rodrigo_choquecardenas@student.uml.edu
-    Updated by RCC on August 8, 2021 at 1:01PM
--->
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Multiplication Table App</title>
-    <!--Linking my .css file to this html file-->
-    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
-    <!--Required .css by the JQuery plugin. This will style the sliders. This was obtained from jquery.com-->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-</head>
-<body>
-    <a href="index2.html">Click here for Part 1</a>
-    <div id="wrapper">
-        <!--Instruction label-->
-        <label id="instr">
-            Enter an integer between -50 to 50 for each axis limit.<br />
-            <span class="note">Note: </span>
-            Table will be auto-generated IF x-axis and y-axis ranges are valid.
-        </label>
-        <!--The "return false" prevents form from submitting and refreshing the page-->
-        <form id="rangeValuesForm" onsubmit="return false">
-            <!--Form with 4 fields. Each one with its respective label and input box-->
-            <div>
-                <label>X-Axis Lower limit</label>
-                <input type="number" id="xlower" name="xlower" value="0" />
-                <!--new div; it will hold the x-lower limit slider The same goes for the next three divs.-->
-                <div id="xlowerSlider"></div>
-            </div>
-            <div>
-                <label>X-Axis Upper limit</label>
-                <input type="number" id="xupper" name="xupper" value="0" />
-                <div id="xupperSlider"></div>
-            </div>
-            <div>
-                <label>Y-Axis Lower limit</label>
-                <input type="number" id="ylower" name="ylower" value="0" />
-                <div id="ylowerSlider"></div>
-            </div>
-            <div>
-                <label>Y-Axis Upper limit</label>
-                <input type="number" id="yupper" name="yupper" value="0" />
-                <div id="yupperSlider"></div>
-            </div>
-            <!--button than activates the event by using the javascrip funciton-->
-            <!--When button is pressed a new tab will open-->
-            <input class="submit" type="submit" value="Create Table on New Tab" />
-        </form>
-
-    </div>
-    <!--div container which will hold the tabs-->
-    <div>
-        <label id="instr2"><span class="note">Note: </span>To see AUTO-GENERATED multiplication table, stay on the "Table" tab</label>
-    </div>
-    <div id="myTabs">
-        <button id="deleteSingle">Delete current tab</button>
-        <!--list is required by the tab JQuery UI-->
-        <ul>
-            <li><a href="#table">Table</a></li>
-        </ul>
-        <div id="table"></div>
-    </div>
+Finally, I used the documentation found in https://api.jqueryui.com/
 
 
-    <script>
+Rodrigo Choque Cardenas, UMass Lowell Computer Science, rodrigo_choquecardenas@student.uml.edu
+Updated by RCC on August 8, 2021 at 1: 01PM
+*/
+$().ready(function () {
+    $("#rangeValuesForm").validate({
+        rules: {
+            xlower: {
+                required: true,
+                min: -50,
+                max: function () {
+                    var xu = $("#xupper").val();
+                    if (xu != "" && parseInt(xu) <= 50)
+                        return parseInt(xu);
+                    else
+                        return 50;
+                },
+                step: 1
+            },
+            xupper: {
+                required: true,
+                min: function () {
+                    var xl = $("#xlower").val();
+                    if (xl != "" && parseInt(xl) >= -50)
+                        return parseInt(xl);
+                    else
+                        return -50;
+                },
+                max: 50,
+                step: 1
+            },
+            ylower: {
+                required: true,
+                min: -50,
+                max: function () {
+                    var yu = $("#yupper").val();
+                    if (yu != "" && parseInt(yu) <= 50)
+                        return parseInt(yu);
+                    else
+                        return 50;
+                },
+                step: 1
+            },
+            yupper: {
+                required: true,
+                min: function () {
+                    var yl = $("#ylower").val();
+                    if (yl != "" && parseInt(yl) >= -50)
+                        return parseInt(yl);
+                    else
+                        return -50;
+                },
+                max: 50,
+                step: 1
+            }
+        },
+        messages: {
+            xlower: {
+                required: "Required field. Enter a number",
+                min: "Enter -50 or greater",
+                max: "Enter number less than 50 AND less than the x-axis UPPER limit",
+                step: "Enter an integer"
+            },
+            xupper: {
+                required: "Required field. Enter a number",
+                min: "Enter number greater than -50 AND greater than the x-axis LOWER limit",
+                max: "Enter 50 or less",
+                step: "Enter an integer"
+            },
+            ylower: {
+                required: "Required field. Enter a number",
+                min: "Enter -50 or greater",
+                max: "Enter number less than 50 AND less than the y-axis UPPER limit",
+                step: "Enter an integer"
+            },
+            yupper: {
+                required: "Required field. Enter a number",
+                min: "Enter number greater than -50 AND greater than the y-axis LOWER limit",
+                max: "Enter 50 or less",
+                step: "Enter an integer"
+            }
+        }
+
+    });
+    // START HERE...Sliders
+
+    $(function () {
+        var form = $("#rangeValuesForm");
+
+        //We add the sliders to the div named xlowerSlider, etc.
+        $("#xlowerSlider").slider();
+        $("#xupperSlider").slider();
+        $("#ylowerSlider").slider();
+        $("#yupperSlider").slider();
+
+        //variable will hold slider properties. Slider will go from -50 to 50, with a step equal to 1
+        var sliderOpts = {
+            min: -50,
+            max: 50,
+            step: 1
+        };
+
+        //we give said properties to the sliders
+        $("#xlowerSlider").slider(sliderOpts);
+        $("#xupperSlider").slider(sliderOpts);
+        $("#ylowerSlider").slider(sliderOpts);
+        $("#yupperSlider").slider(sliderOpts);
+
         /*
-         * This is the same as HW3 (including the comments) except that I erased all error handlers and error messages.
-         * This function builds the table
-         */
-        function obtainValues() {
-
-            /*Obtaining string values from the input boxes*/
-            var xL = document.getElementById("xlower").value;
-            var xU = document.getElementById("xupper").value;
-            var yL = document.getElementById("ylower").value;
-            var yU = document.getElementById("yupper").value;
-
-            /*Spend two hours on these next 4 lines. For some reason the .value function returns a string
-             * even if the type of inputbox is specified as a number.
-             * The worst thing was that the xL, xU, yL, yU variables DID worked on the "for" loops;
-             * but it was compairing the string value and not the numerical value.
-             * For example, if my horizontal values went from 1 to 10, it'd work, but when
-             * it went from 2 to 10, it didn't. It took me many tests to notice the pattern :(
-             * I got the tutorial on how to obtain a value from an input box from w3schools, but
-             * nowhere is mentioned that if you plan to use numbers, you must convert them into numbers first
-             * sigh...very fustrating :P */
-            var xLower = parseInt(xL);
-            var yLower = parseInt(yL);
-            var xUpper = parseInt(xU);
-            var yUpper = parseInt(yU);
-
-            createTable(xLower, xUpper, yLower, yUpper);
-        }
-        /**
-         * Function requires four parameters to build table
-         * @param xLower lower bound of x axis
-         * @param xUpper upper bound of x axis
-         * @param yLower lower bound of y axis
-         * @param yUpper upper bound of y axis
-         * To build the table I chose between two options:
-         * Use js functions like createElement() to build html object, but it was becoming to clustered
-         * Use concatanation and a string to simply concatanate html tags, this was easier and way shorter
-         */
-        function createTable(xLower, xUpper, yLower, yUpper) {
-
-            var table = "<table border = '1'>";
-
-            /*Fill table horizontal header*/
-            table += "<tr id='headRow'>" + "<td>" + "*" + "</td>";
-            for (var i = xLower; i <= xUpper; i++) {
-                table += "<td>" + i + "</td>";
-            }
-            table += "</tr>"
-
-            /*Here we start filling each row. First with the corresponding vertical header value
-             and then with the multiplication between the current x and y axis values*/
-            for (var j = yLower; j <= yUpper; j++) {
-                /*Start of each row*/
-                table += "<tr>";
-                table += "<td>" + j + "</td>";
-                for (var i = xLower; i <= xUpper; i++) {
-                    /*Add each value to the respective row*/
-                    var value = i * j;
-                    table += "<td>" + value + "</td>";
+         * Implementation of the 2-way binding starts here...
+         * The property "slide" will call the inner function every time the mouse moves the slider
+         * The function does two things: it updates the input filed with the value given by the slider;
+         * and if the values of the four input fields are valid, it will create the table dynamically.
+         * So everytime the slider is moved to a valid range, a table will be auto-generated.
+         */ 
+        $("#xlowerSlider").slider({
+            slide: function (event, ui) {
+                $("#xlower").val(ui.value);
+                if (form.valid()) {
+                    obtainValues();
                 }
-                /*End of each row*/
-                table += "</tr>";
             }
-            /*We add the last tag and add the table to the div with id = table*/
-            table += "</table>";
-            document.getElementById("table").innerHTML = table;
+        });
+        //The next three functions do exactly the same
+        $("#xupperSlider").slider({
+            slide: function (event, ui) {
+                $("#xupper").val(ui.value);
+                if (form.valid()) {
+                    obtainValues();
+                }
+            }
+        });
+        $("#ylowerSlider").slider({
+            slide: function (event, ui) {
+                $("#ylower").val(ui.value);
+                if (form.valid()) {
+                    obtainValues();
+                }
+            }
+        });
+        $("#yupperSlider").slider({
+            slide: function (event, ui) {
+                $("#yupper").val(ui.value);
+                if (form.valid()) {
+                    obtainValues();
+                }
+            }
+        });
+        /*Second part of the 2-way binding. Every the user inputs a number on the input field,
+         * the respective slider will obtain that value and change its own value to the new one, moving the slider to
+         * its respective position.
+         * A multiplication table will be also auto-generated everytime the user inputs valid table ranges.
+         */
+        $("#xlower").change(function () {
+            $("#xlowerSlider").slider("value", $("#xlower").val());
+            if (form.valid()) {
+                obtainValues();
+            }
+        });
+        $("#xupper").change(function () {
+            $("#xupperSlider").slider("value", $("#xupper").val());
+            if (form.valid()) {
+                obtainValues();
+            }
+        });
+        $("#ylower").change(function () {
+            $("#ylowerSlider").slider("value", $("#ylower").val());
+            if (form.valid()) {
+                obtainValues();
+            }
+        });
+        $("#yupper").change(function () {
+            $("#yupperSlider").slider("value", $("#yupper").val());
+            if (form.valid()) {
+                obtainValues();
+            }
+        });
 
+    });
+
+    //Tabs...
+    //Function adds tab to div with id myTabs
+    $(function () {
+        $("#myTabs").tabs();
+    });
+
+    //The "auto-generation" is shown in the default/first tab. Whenever the user opens a new tab,
+    //this table shown in the default tab will be copied into the new tab.
+    //I will use the submit button of my form to signal when to open a new tab.
+    $("#rangeValuesForm").submit(function (event) {
+        var form = $("#rangeValuesForm");
+        //When the user click on the submit button, it will check if the inputs are valid and proceed to generate a new tab
+        if (form.valid()) {
+            //First we obtain the number of tabs we already
+            var num_tabs = $("#myTabs ul li").length + 1;
+
+            //Second, we obtain the current table shown in the first tab
+            var currentTable = document.getElementById("table").innerHTML;
+            //Third, we obtain the values of each input field and concatane them into a var so it contains the x and y range
+            var currentValues = "x:[" + document.getElementById("xlower").value + "," +
+                document.getElementById("xupper").value + "] y:[" +
+                document.getElementById("ylower").value + "," +
+                document.getElementById("yupper").value + "]";
+
+            //Then, we add a reference to the ulist using num_tabs. We also use the previous string to display the range in the tab header.
+            $("#myTabs ul").append(
+                "<li><a href='#tab" + num_tabs + "'>" + currentValues + "</a></li>"
+            );
+            //Create the actual tab div and add it to the div#myTabs. We put the previously saved table into the new tab.
+            $("#myTabs").append(
+                "<div id='tab" + num_tabs + "'>" + currentTable + "</div>"
+            );
+            $("#myTabs").tabs("refresh");
         }
-    </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!--Adding the Jquery UI library to our files-->
-    <script src="js/jquery.validate.js"></script>
-    <script src="js/valueForm.js"></script>
+    });
+    $("#deleteSingle").click(function () {
+        var active = $("#myTabs").tabs("option", "active");
+        active += 1;
+        console.log(active);
 
-</body>
-</html>
+        if (active >= 2) {
+            var activeTab = "tab" + active;
+            console.log(activeTab);
+            var tabToBeRemoved = document.getElementById(activeTab);
+            // Remove the panel
+            tabToBeRemoved.remove();
+
+
+
+            // Remove the tab
+            var hrefStr = "a[href='#" + activeTab + "']"
+            $(hrefStr).closest("li").remove()
+        }
+
+
+    });
+
+});
