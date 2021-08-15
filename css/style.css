@@ -1,0 +1,45 @@
+/*File: mystyle.css
+Created on: August 11, 2021
+GUI Assignment: HW5: Implementing a Bit of Scrabble with Drag-and-Drop
+Description: File contains simple CSS rules to style out index.html file.
+
+DISCLAIMER: Most of this code was obtained by reading w3schools.com tutorials.
+
+Rodrigo Choque Cardenas, UMass Lowell Computer Science, rodrigo_choquecardenas@student.uml.edu
+Updated by RCC on August 11, 2021 at 10:54AM
+*/
+
+
+/*I used the professor provided images as background for my board container*/
+#board {
+    background-image: url("../graphics_data/Scrabble_Board_OneLine.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 80px;
+    width: 795px;
+}
+#score {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    height: 80px;
+    width: 300px;
+}
+/*I used the professor provided images as background for my holder container*/
+#holder {
+    background-image: url("../graphics_data/scrabble-tile-holder.png");
+    padding: 10px 0px 0px 0px;
+    background-size: cover;
+    height: 100px;
+    width: 350px;
+}
+.board_slot, .board_slot_lbonus, .board_slot_wbonus {
+    height: 57px;
+    width: 53px;
+    display: inline-block;
+}
+img {
+    height: 52px;
+    width: 50px;
+    display: inline-block;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+    File: index.html
+    Created on: August 11, 2021
+    GUI Assignment: HW5: Implementing a Bit of Scrabble with Drag-and-Drop
+    Description: File contains all the data for the creation of a line of Scrabble. The html containers consist of a game board, a score
+    label, a holder where we place the player's letters and a button to restart the game.
+    We will make use of the JQuery UI library in the _js.js file.
+    We also use a data structure that holds information about the Scrabble letter tiles. I used the data structure provided by the professor in the zip file.
+
+    DISCLAIMER: Most of this code was obtained by reading w3schools.com tutorials, unless noted
+
+    Rodrigo Choque Cardenas, UMass Lowell Computer Science, rodrigo_choquecardenas@student.uml.edu
+    Updated by RCC on August 11, 2021 at 10:30AM
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Scrabble</title>
+    <!--Linking my .css file to this html file-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+    <div id="mainContainer">
+        <div id="board">
+
+        </div>
+
+        <label id="score">
+            Score: <span id="total">0</span>
+        </label>
+
+        <div id="holder">
+
+        </div>
+
+        <button id="restart" onclick="restartGame()">Restart Game</button>
+
+    </div>
+
+    <!--Loadind both the JQuery and JQuery UI library-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!--Letter tiles data structure-->
+    <script src="graphics_data/Scrabble_Pieces_AssociativeArray_Jesse.js"></script>
+    <!--All the events will be handled on the next file-->
+    <script src="js/_js.js"></script>
+
+
+</body>
+</html>
